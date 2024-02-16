@@ -3,8 +3,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import { showNav, hideNav } from "../../store/Slices/navChange/showNav";
+import SearchIcon from '@mui/icons-material/Search';
 export default function Navbar({}) {
- 
+  const { navBar } = useSelector((state) => state.nav);
+  const Dispatch = useDispatch();
   return (
     <>
       {/*start top header */}
@@ -19,9 +23,10 @@ export default function Navbar({}) {
         dir="rtl"
         flexDirection={"row"}
         alignItems="center"
+        justifyContent='space-between'
       >
         {/*start right side */}
-        <Stack flexDirection={"row"} sx={{ width: "50%" }} alignItems="center">
+        <Stack flexDirection={"row"} sx={{ width: "50%" ,position:'relative'}} alignItems="center" >
           {/* logo */}
           <Link
             to={"./"}
@@ -35,7 +40,10 @@ export default function Navbar({}) {
           >
             logo
           </Link>
+          {/* search icon */}
+         <SearchIcon sx={{position:'absolute',right:'50px', zIndex:'1000' ,fontWeight:'500' ,color:'#a1a3a8'}} dir='rtl' />
           {/*search input */}
+
           <Box
             sx={{
               marginRight: { md: "10px" },
@@ -58,9 +66,9 @@ export default function Navbar({}) {
               sx={{
                 background: "#f0f0f1",
                 border: "none",
-                outline:"none",
-                padding: "0px 45px 0px 0px",
-                border:"none",
+                outline: "none",
+                padding: "0px 45px 0px 1px",
+                border: "none",
               }}
               border="none"
               fullWidth
@@ -76,32 +84,54 @@ export default function Navbar({}) {
         {/* start left side */}
         <Stack
           flexDirection={"row"}
-          justifyContent={"flex-end"}
+         
           alignItems={"center"}
         >
           {/* login log out */}
-          <Box
-            sx={{
-              border: "1px solid",
-              padding: "10px 12px",
-              width: { md: "134px" },
-              height: { md: "40px" },
-            }}
-            ml={3}
-            borderRadius={2}
+
+          <Link
+            to={"/login-register"}
+            sx={{ padding: "10px 12px" }}
+         
           >
-            <Link to={"/login-register"} sx={{ padding: "10px 12px" , }} display='flex'>
-             <Typography variant="a" component={'a'}  sx={{margin:'30px  0',color:'#616161 ' ,fontSize:'12px'}}> ورود / ثبت نام</Typography>
-              <ExitToAppOutlinedIcon sx={{color:'#616161 ' ,alignItems:'start'}} />
-            </Link>
-          </Box>
+            {" "}
+            <Box
+              sx={{
+                border: "1px solid",
+                padding: "10px 12px",
+                width: { md: "134px" },
+                height: { md: "40px" },
+              }}
+              ml={3}
+              borderRadius={2}
+              display="flex"
+              alignItems={'center'}
+              justifyContent='space-between'
+              
+            >
+              <Typography
+                variant="a"
+                component={"a"}
+                sx={{ margin: "30px  0", color: "#616161 ", fontSize: "12px" }}
+              >
+                
+                ورود / ثبت نام
+              </Typography>
+              <ExitToAppOutlinedIcon
+                sx={{ color: "#616161 ", alignItems: "start" } }
+                
+              />
+            </Box>
+          </Link>
+
           {/* shopping cart */}
-          <Box pr={"10px"} sx={{ borderRight: "1px solid #e0e0e2" }}>
-           
-            <Link to={"/shopping-list"} >
-              <ShoppingCartOutlinedIcon  sx={{color:'#616161 '}} dir="rtl" />
+         
+            <Link to={"/shopping-list"}>
+            <Box pr={"10px"} sx={{ borderRight: "1px solid #e0e0e2" }}>
+              <ShoppingCartOutlinedIcon sx={{ color: "#616161 " }} dir="rtl" />
+               </Box>
             </Link>
-          </Box>
+         
         </Stack>
         {/* end left side */}
       </Stack>
