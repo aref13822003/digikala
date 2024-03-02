@@ -1,141 +1,242 @@
-import { Box, Hidden, Stack, TextField, Typography } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+//components
+import TopAppBar from "../TopNavBAr";
+// react and redux
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showNav, hideNav } from "../../store/Slices/navChange/showNav";
-import SearchIcon from '@mui/icons-material/Search';
+import fetchApi from "../../utils/fetchApi";
+
+// mui react router dom
+
+import { Box, Stack, TextField, Typography } from "@mui/material";
+import useMediaQuery from "@mui/material";
+import { Link } from "react-router-dom";
+
+// icons
+
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import MenuIcon from "@mui/icons-material/Menu";
+import PercentIcon from "@mui/icons-material/Percent";
+import BottomAppBar from "../BottomNavBar";
+
+
 export default function Navbar({}) {
+  // elements
   const { navBar } = useSelector((state) => state.nav);
+
   const Dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  // states
+  const [logo, setLogo] = useState();
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+  // fetches
+
+  useEffect(() => {
+    (async () => {
+      const data = await fetchApi(
+        process.env.REACT_APP_BASE_API + "logos?populate=*"
+      );
+      setLogo(data.data[0].attributes.logo.data[0].attributes.url);
+    })();
+  }, []);
+  // functions
+  const handleShowSubmenu = () => {
+    setShowMenu(true);
+  };
+  const handleCloseSubmenu = () => {
+    setShowMenu(false);
+  };
+  const windowWidth=window.innerWidth
+    console.log(windowWidth)
+   
+    if(windowWidth===1000){console.log(helowwwww)}
   return (
     <>
-      {/*start top header */}
+   
+     
+     <TopAppBar />
+    
+      {/* start menu header */}
+      {/* menu part */}
+<BottomAppBar/>
+      {/* */}
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
       <Stack
         sx={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
           maxWidth: "1676",
           minWidth: "1009",
-
-          margin: "0px auto",
-          padding: "12px 14px",
+          padding: "0 15px",
+          margin: "0 auto",
+          borderBottom: ".5px solid #f5f5f5  ",
+          display: {
+            lg: "flex",
+            md: "none",
+            sm: "none",
+            xs: "none",
+          },
         }}
-        dir="rtl"
-        flexDirection={"row"}
-        alignItems="center"
-        justifyContent='space-between'
       >
-        {/*start right side */}
-        <Stack flexDirection={"row"} sx={{ width: "50%" ,position:'relative'}} alignItems="center" >
-          {/* logo */}
-          <Link
-            to={"./"}
-            sx={{
-              backgroundSize: "contain",
-              display: "block",
-              width: 120,
-              height: 30,
+        <Stack>
+          {" "}
+          <ul
+            id="menu-appbar"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              lineHeight: "30px",
             }}
-            ml={10}
           >
-            logo
-          </Link>
-          {/* search icon */}
-         <SearchIcon sx={{position:'absolute',right:'50px', zIndex:'1000' ,fontWeight:'500' ,color:'#a1a3a8'}} dir='rtl' />
-          {/*search input */}
-
-          <Box
-            sx={{
-              marginRight: { md: "10px" },
-              width: 500,
-              maxWidth: "100%",
-              width: "70%",
-              padding: "16px 0px 16px 0px",
-
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-              overflow: "hidden,",
-              fontSize: { md: "1.2rem", sm: "1.1rem", xs: "1.1rem" },
-              fontWeight: 400,
-              lineHeight: 2.17,
-            }}
-            borderRadius="8px"
-            dir="rtl"
-          >
-            <TextField
-              sx={{
-                background: "#f0f0f1",
-                border: "none",
-                outline: "none",
-                padding: "0px 45px 0px 1px",
-                border: "none",
+            <li
+              style={{
+                color: "black",
+                fontWeight: 600,
+                fontsize: "12px",
+                display: "flex",
+                alignItems: "center",
+                borderLeft: "1px solid #f0f0f1",
+                paddingLeft: "15px",
               }}
-              border="none"
-              fullWidth
-              placeholder="جستجو کنید"
-              outline="none"
-              borderRadius="8px"
-              dir="rtl"
-            />
-          </Box>
-        </Stack>
-        {/* end right side */}
-
-        {/* start left side */}
-        <Stack
-          flexDirection={"row"}
-         
-          alignItems={"center"}
-        >
-          {/* login log out */}
-
-          <Link
-            to={"/login-register"}
-            sx={{ padding: "10px 12px" }}
-         
-          >
-            {" "}
-            <Box
-              sx={{
-                border: "1px solid",
-                padding: "10px 12px",
-                width: { md: "134px" },
-                height: { md: "40px" },
+              onMouseOver={() => {
+                handleShowSubmenu();
               }}
-              ml={3}
-              borderRadius={2}
-              display="flex"
-              alignItems={'center'}
-              justifyContent='space-between'
-              
+              onMouseOut={() => {
+                handleCloseSubmenu();
+              }}
             >
-              <Typography
-                variant="a"
-                component={"a"}
-                sx={{ margin: "30px  0", color: "#616161 ", fontSize: "12px" }}
+              <MenuIcon sx={{ padding: "1px" }} />
+              دسته بندی کالا
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                
-                ورود / ثبت نام
-              </Typography>
-              <ExitToAppOutlinedIcon
-                sx={{ color: "#616161 ", alignItems: "start" } }
-                
-              />
-            </Box>
-          </Link>
-
-          {/* shopping cart */}
-         
-            <Link to={"/shopping-list"}>
-            <Box pr={"10px"} sx={{ borderRight: "1px solid #e0e0e2" }}>
-              <ShoppingCartOutlinedIcon sx={{ color: "#616161 " }} dir="rtl" />
-               </Box>
-            </Link>
-         
+                <PercentIcon
+                  sx={{
+                    width: "18px",
+                    height: "18px",
+                    borderRadius: "50%",
+                    border: "1px solid black",
+                    padding: "1px",
+                  }}
+                />
+                شگفت انگیز ها
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                سوپر مارکت
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                کارت هدیه
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                تخفیف وپیشنهاد ها
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                {" "}
+                پر فروش ترین ها
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                سوالی دارید؟
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  padding: "10px",
+                  display: "block",
+                  fontSize: "12px",
+                  color: "#616161",
+                  fontWeight: 600,
+                }}
+              >
+                !در دیجیکالا بقروشید
+              </Link>
+            </li>
+          </ul>
         </Stack>
-        {/* end left side */}
+        {/* location part  */}
+        <Stack
+          alignItems={"center"}
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+        >
+          <LocationOnIcon ml={2} sx={{ fontFamily: "400" }} />
+          <Typography
+            variant="body2"
+            style={{
+              color: "#616161",
+              fontWeight: 300,
+              fontsize: "18px",
+              lineHeight: "30px",
+            }}
+          >
+            لطفا شهر و استان خود را انتخاب کنید
+          </Typography>
+        </Stack>
       </Stack>
-      {/* end top header */}
+      {/*end menu header */}
+     
     </>
   );
 }

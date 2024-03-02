@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_menus",
+  "info": {
+    "singularName": "sub-menu",
+    "pluralName": "sub-menus",
+    "displayName": "subMenu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "submenu": {
+      "type": "string"
+    },
+    "menu": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::menu.menu",
+      "inversedBy": "sub_menu"
+    }
+  }
+}

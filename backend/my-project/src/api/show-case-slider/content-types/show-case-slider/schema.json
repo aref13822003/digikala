@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "show_case_sliders",
+  "info": {
+    "singularName": "show-case-slider",
+    "pluralName": "show-case-sliders",
+    "displayName": "show case slider"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "price": {
+      "type": "string"
+    },
+    "off": {
+      "type": "string"
+    }
+  }
+}
