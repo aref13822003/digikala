@@ -36,7 +36,7 @@ function BottomAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{background:'#fff'}}>
+    <AppBar position="static" sx={{background:'#fff' ,display:{xs:'none',md:'flex'}}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
      
@@ -118,7 +118,7 @@ function BottomAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             
             <Menu
-              sx={{ mt: '45px',color:'black' }}
+              sx={{ mt: '45px',color:"black", zIndex:1000}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -133,11 +133,11 @@ function BottomAppBar() {
               }}
              
             >
-              <LocationOnIcon ml={2} sx={{ fontFamily: "400" }} />
+              <LocationOnIcon ml={2} sx={{ fontFamily: "400"  }} />
           <Typography
             variant="body2"
             style={{
-              color: "#616161",
+              color: "#3F4064",
               fontWeight: 300,
               fontsize: "18px",
               lineHeight: "30px",

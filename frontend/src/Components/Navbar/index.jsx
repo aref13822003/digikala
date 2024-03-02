@@ -60,8 +60,22 @@ export default function Navbar({}) {
       {/* menu part */}
 <BottomAppBar/>
       {/* */}
-      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-      <Stack
+     
+      {/*end menu header */}
+     
+    </>
+  );
+}
+
+
+
+
+
+
+
+
+
+  {/* <Stack
         sx={{
           flexDirection: "row",
           alignItems: "center",
@@ -216,27 +230,22 @@ export default function Navbar({}) {
           </ul>
         </Stack>
         {/* location part  */}
-        <Stack
-          alignItems={"center"}
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-        >
-          <LocationOnIcon ml={2} sx={{ fontFamily: "400" }} />
-          <Typography
-            variant="body2"
-            style={{
-              color: "#616161",
-              fontWeight: 300,
-              fontsize: "18px",
-              lineHeight: "30px",
-            }}
-          >
-            لطفا شهر و استان خود را انتخاب کنید
-          </Typography>
-        </Stack>
-      </Stack>
-      {/*end menu header */}
-     
-    </>
-  );
-}
+      //   <Stack
+      //     alignItems={"center"}
+      //     flexDirection={"row"}
+      //     justifyContent={"space-between"}
+      //   >
+      //     <LocationOnIcon ml={2} sx={{ fontFamily: "400" }} />
+      //     <Typography
+      //       variant="body2"
+      //       style={{
+      //         color: "#616161",
+      //         fontWeight: 300,
+      //         fontsize: "18px",
+      //         lineHeight: "30px",
+      //       }}
+      //     >
+      //       لطفا شهر و استان خود را انتخاب کنید
+      //     </Typography>
+      //   </Stack>
+      // </Stack> */}

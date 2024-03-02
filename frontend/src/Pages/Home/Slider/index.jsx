@@ -1,19 +1,28 @@
-import { Box } from "@mui/material";
+//react redux
 import React, { useEffect, useState } from "react";
+//mui
+import { Box } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
+//swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation,Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import fetchApi from "../../../utils/fetchApi";
-import Skeleton from "@mui/material/Skeleton";
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+//hooks
+import fetchApi from "../../../utils/fetchApi";
+// icons
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+
+
+
 export default function Slider({ url }) {
   const [slide, setSlide] = useState();
 
   useEffect(() => {
     (async () => {
-      const data = await fetchApi(process.env.REACT_APP_BASE_API + url);
+      const data = await fetchApi(process.env.REACT_APP_BASE_API + 'sliders?populate=*');
       setSlide(data?.data);
     })();
   }, []);
@@ -34,7 +43,7 @@ export default function Slider({ url }) {
   return (
     <>
       {slide ? (
-        <Box sx={{ height: { lg: "50vh", md: "40vh", sm: "40vh" } }}>
+        <Box sx={{ height: { lg: "50vh", md: "40vh", sm: "40vh",  } }}>
           <Swiper   style={{ height: "100%" }}   slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -46,6 +55,7 @@ export default function Slider({ url }) {
         className="mySwiper">
             {sliderItems}
           </Swiper>
+       
         </Box>
       ) : (
         //{start loading}
