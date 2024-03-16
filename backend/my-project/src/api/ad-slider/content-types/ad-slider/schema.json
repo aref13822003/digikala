@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ad_sliders",
+  "info": {
+    "singularName": "ad-slider",
+    "pluralName": "ad-sliders",
+    "displayName": "adSlider"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

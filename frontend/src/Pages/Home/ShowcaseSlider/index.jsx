@@ -1,126 +1,74 @@
-import React, { useEffect, useRef, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
+//react redux
+import React, { useEffect, useRef, useState } from "react";
+//  Swiper  components //style // module
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-
-// import required modules
-import { Pagination } from "swiper/modules";
-import fetchApi from "../../../utils/fetchApi";
-import { Padding } from "@mui/icons-material";
+//mui
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+//hooks
+import fetchApi from "../../../utils/fetchApi";
 
-export default function ShowCaseSlider() {
-  const [showCase, setShowCase] = useState();
+export default function App() {
+  // elemnts
 
-  useEffect(() => {
-    (async () => {
-      const data = await fetchApi(
-        process.env.REACT_APP_BASE_API + "show-case-sliders?populate=*"
-      );
-      setShowCase(data?.data);
-    })();
-  });
-  const showCaseData = showCase?.map((e, index) => (
-    <SwiperSlide
-      key={index}
-      style={{
-        Padding: "12px",
-        width: "154px",
-        background: "#fff",
-        margin: "20px 0 0 30px",
-        height: "80%",
-        padding: "20px",
-      }}
-    >
-      <Link to="/*">
-        <image
-          src={
-            process.env.REACT_APP_BASE_URL +
-            e?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url
-          }
-          alt=""
-          style={{
-            display: "block",
-            width: "100%",
-            height: "70%",
-            objectFit: "cover",
-          }}
-        />
-        <Typography variant="h5" sx={{ color: "black" }}>
-          {" "}
-          {parseInt(e?.attributes?.price * (1 - e?.attributes?.off / 100))}{" "}
-          تومان
-        </Typography>
-        <Typography
-          variant="h6"
-          style={{ textDecoration: "line-Through" }}
-          sx={{ color: "black" }}
-        >
-          {" "}
-          {e?.attributes?.price}{" "}
-        </Typography>
-      </Link>
-    </SwiperSlide>
-  ));
+
+  //states
+  const [showCaseData,setShowCaseData]=useState()
+
+  //fetchs
+useEffect(()=>{
+  (async()=>{
+    const data=await fetchApi(process.env.REACT_APP_BASE_API+'show-case-sliders?populate=*')
+   
+    setShowCaseData(data.data)
+  })()
+},[])
+
+
+// maps
+const showCaseSlider=showCaseData?.map((e, index)=>{
+  const price=+(e?.attribute?.price)
+  const discount=1-Number(e?.attribute?.off/100) 
+  const discontPrice=price*+discount
+  return   <SwiperSlide
+  key={index}
+  style={{
+    background: "#fff",
+    display: "flex",
+    flexDirection: "column",
+    paddingTop:"4px",
+margin:'10px 0',
+   height:'80%'
+  }}
+
+>
+  <img src={process.env.REACT_APP_BASE_URL+e?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url   } alt="product image" style={{  display: "block",
+width:" 100%",
+height:" 50%",
+objectFit: "cover",}}></img>
+  <Typography> {discontPrice}</Typography>
+  <Typography>{price}</Typography>
+</SwiperSlide>
+})
   return (
     <>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={6}
         centeredSlides={true}
         spaceBetween={30}
         grabCursor={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
+   
         className="mySwiper"
+        style={{ width: "85%", height: "40vh",background:'#e6123d',  borderRadius:'8px',marginTop:'10px', }}
       >
-        <SwiperSlide
-          style={{
-            Padding: "12px",
-            width: "154px",
-            background: "#fff",
-            margin: "20px 0 0 30px",
-            height: "80%",
-            padding: "20px",
-          }}
-        >
-          <Link to="/*">
-            <image
-              src={''
-                // process.env.REACT_APP_BASE_URL +
-                // e?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url
-              }
-              alt=""
-              style={{
-                display: "block",
-                width: "100%",
-                height: "70%",
-                objectFit: "cover",
-              }}
-            />
-            <Typography variant="h5" sx={{ color: "black" }}>
-              {/* {" "}
-              {parseInt(
-                e?.attributes?.price * (1 - e?.attributes?.off / 100)
-              )}{" "} */}
-              تومان
-            </Typography>
-            <Typography
-              variant="h6"
-              style={{ textDecoration: "line-Through" }}
-              sx={{ color: "black" }}
-            >
-              {" "}
-              {/* {e?.attributes?.price}{" "} */}
-            </Typography>
-          </Link>
-        </SwiperSlide>
+      
+{showCaseSlider}
+      
       </Swiper>
+
+     
     </>
   );
 }

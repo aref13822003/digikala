@@ -783,6 +783,37 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiAdSliderAdSlider extends Schema.CollectionType {
+  collectionName: 'ad_sliders';
+  info: {
+    singularName: 'ad-slider';
+    pluralName: 'ad-sliders';
+    displayName: 'adSlider';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    image: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ad-slider.ad-slider',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ad-slider.ad-slider',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiAddAdd extends Schema.CollectionType {
   collectionName: 'adds';
   info: {
@@ -1111,6 +1142,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::ad-slider.ad-slider': ApiAdSliderAdSlider;
       'api::add.add': ApiAddAdd;
       'api::category.category': ApiCategoryCategory;
       'api::logo.logo': ApiLogoLogo;

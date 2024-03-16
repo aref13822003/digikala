@@ -8,6 +8,7 @@ import Auth from './Pages/Auth'
 import { UseSelector, useSelector } from 'react-redux'
 import PageNotFound from './Pages/404/PageNotFound'
 import TopAppBar from './Components/TopNavBAr'
+import Footer from './Components/Footer'
 export default function App() {
   console.log(process.env.REACT_APP_BASE_URL)
   let hidNav=false
@@ -28,7 +29,7 @@ export default function App() {
 <Route  path='/*' element={<PageNotFound/>}></Route>
  </Routes>
  
- 
+ <Footer/>
  
  
  </>
